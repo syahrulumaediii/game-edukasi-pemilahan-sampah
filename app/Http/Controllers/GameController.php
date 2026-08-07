@@ -37,7 +37,7 @@ class GameController extends Controller
                     'id' => $q->id,
                     'nama_sampah' => $q->nama_sampah,
                     'kategori' => $q->kategori,
-                    'gambar' => asset($q->gambar),
+                    'gambar' => $q->gambar,
                     'fakta_edukasi' => $q->fakta_edukasi,
                 ];
             })

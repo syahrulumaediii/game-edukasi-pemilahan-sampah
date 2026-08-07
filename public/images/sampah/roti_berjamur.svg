@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Toast shape -->
+            <path d="M 30 35 C 30 25 45 20 50 25 C 55 20 70 25 70 35 L 70 75 C 70 80 65 85 50 85 C 35 85 30 80 30 75 Z" fill="#fde047" stroke="#ca8a04" stroke-width="4" />
+            <!-- Mold spots -->
+            <circle cx="40" cy="45" r="6" fill="#047857" opacity="0.7" />
+            <circle cx="43" cy="48" r="4" fill="#065f46" opacity="0.7" />
+            <circle cx="58" cy="65" r="7" fill="#047857" opacity="0.7" />
+            <circle cx="38" cy="70" r="5" fill="#047857" opacity="0.7" />
+        </svg>

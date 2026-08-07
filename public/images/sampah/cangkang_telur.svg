@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Egg shell cracked -->
+            <path d="M 25 60 C 25 40 40 25 50 25 C 60 25 75 40 75 60 C 75 65 70 75 50 75 C 30 75 25 65 25 60 Z" fill="#fef3c7" />
+            <!-- Crack lines -->
+            <path d="M 50 25 L 48 45 L 55 50 L 50 75" stroke="#d97706" stroke-width="3" fill="none" stroke-linejoin="round" />
+            <path d="M 48 45 L 35 48" stroke="#d97706" stroke-width="3" fill="none" />
+            <path d="M 55 50 L 68 48" stroke="#d97706" stroke-width="3" fill="none" />
+        </svg>

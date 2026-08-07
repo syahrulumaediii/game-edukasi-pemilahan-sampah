@@ -48,4 +48,4 @@ Route::get('/play/{game_code}/status', [App\Http\Controllers\GameController::cla
 Route::post('/play/{game_code}/submit-score', [App\Http\Controllers\GameController::class, 'submitScore'])->name('play.submit-score');
 Route::get('/play/{game_code}/live', [App\Http\Controllers\GameController::class, 'liveLeaderboard'])->name('play.live-leaderboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

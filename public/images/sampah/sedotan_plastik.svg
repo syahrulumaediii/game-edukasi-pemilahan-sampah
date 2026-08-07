@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Bendy straw -->
+            <path d="M 25 85 L 60 35 L 75 40" fill="none" stroke="#f472b6" stroke-width="8" stroke-linecap="round" />
+            <!-- Stripes -->
+            <path d="M 25 85 L 60 35 L 75 40" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-dasharray="8 8" />
+        </svg>

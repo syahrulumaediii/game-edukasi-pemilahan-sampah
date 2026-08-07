@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GameSession;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class SessionQuestionController extends Controller
@@ -15,7 +16,10 @@ class SessionQuestionController extends Controller
      */
     public function create(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -27,7 +31,10 @@ class SessionQuestionController extends Controller
      */
     public function store(Request $request, GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -43,13 +50,13 @@ class SessionQuestionController extends Controller
             'kategori' => $request->kategori,
             'fakta_edukasi' => $request->fakta_edukasi,
             'is_default' => false,
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
         ];
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            
+
             if (!File::exists(public_path('images/sampah'))) {
                 File::makeDirectory(public_path('images/sampah'), 0755, true);
             }
@@ -74,8 +81,11 @@ class SessionQuestionController extends Controller
      */
     public function edit(Question $question)
     {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
         // Hanya bisa edit jika ini soal buatan guru itu sendiri
-        if ($question->user_id !== auth()->id()) {
+        if ($question->user_id !== $user->id) {
             abort(403, 'Anda tidak diizinkan mengubah soal default admin.');
         }
 
@@ -90,7 +100,10 @@ class SessionQuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        if ($question->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($question->user_id !== $user->id) {
             abort(403);
         }
 
@@ -138,9 +151,12 @@ class SessionQuestionController extends Controller
             'session_id' => ['required', 'exists:game_sessions,id'],
         ]);
 
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
         $session = GameSession::findOrFail($request->session_id);
-        
-        if ($session->user_id !== auth()->id()) {
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -149,7 +165,7 @@ class SessionQuestionController extends Controller
 
         // Jika ini soal kustom milik guru tersebut dan sudah tidak terhubung ke sesi manapun,
         // kita bisa menghapusnya secara permanen dari database
-        if ($question->user_id === auth()->id() && $question->gameSessions()->count() === 0) {
+        if ($question->user_id === $user->id && $question->gameSessions()->count() === 0) {
             if ($question->gambar && File::exists(public_path($question->gambar))) {
                 File::delete(public_path($question->gambar));
             }

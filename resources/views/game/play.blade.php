@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Detektif Sampah - Sesi Kelas</title>
     <!-- Tailwind CSS -->
@@ -70,14 +70,17 @@
                 <div>
                     <label class="font-fredoka font-bold text-sm text-gray-700 block mb-2">Kamu Kelas Berapa?</label>
                     <div class="grid grid-cols-3 gap-3">
-                        <button @click="selectGrade('1')" :class="studentGrade === '1' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-4 font-fredoka font-bold text-2xl rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
-                            1
+                        <button @click="selectGrade('1')" :class="studentGrade === '1' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-3.5 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
+                            <span class="font-fredoka font-bold text-2xl">1</span>
+                            <span class="text-[9px] font-semibold opacity-85 mt-0.5">2 Bak Sampah</span>
                         </button>
-                        <button @click="selectGrade('2')" :class="studentGrade === '2' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-4 font-fredoka font-bold text-2xl rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
-                            2
+                        <button @click="selectGrade('2')" :class="studentGrade === '2' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-3.5 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
+                            <span class="font-fredoka font-bold text-2xl">2</span>
+                            <span class="text-[9px] font-semibold opacity-85 mt-0.5">3 Bak (+B3)</span>
                         </button>
-                        <button @click="selectGrade('3')" :class="studentGrade === '3' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-4 font-fredoka font-bold text-2xl rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
-                            3
+                        <button @click="selectGrade('3')" :class="studentGrade === '3' ? 'bg-emerald-500 text-white ring-4 ring-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800'" class="py-3.5 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 border-emerald-100 shadow-sm tap-scale">
+                            <span class="font-fredoka font-bold text-2xl">3</span>
+                            <span class="text-[9px] font-semibold opacity-85 mt-0.5">3 Bak (+B3)</span>
                         </button>
                     </div>
                     <p x-show="showGradeError" class="text-xs text-red-500 font-bold mt-1">⚠️ Pilih kelasmu dulu ya!</p>
@@ -142,7 +145,7 @@
                 <!-- Container Kaca Pembesar -->
                 <div class="w-44 h-44 bg-white rounded-full border-8 border-emerald-500 shadow-xl flex items-center justify-center p-3 relative transform hover:scale-[1.02] transition-transform duration-200">
                     <template x-if="currentQuestion">
-                        <img :src="currentQuestion.gambar" :alt="currentQuestion.nama_sampah" class="w-full h-full object-contain">
+                        <img :src="getImageUrl(currentQuestion.gambar)" :alt="currentQuestion.nama_sampah" class="w-full h-full object-contain">
                     </template>
                 </div>
 
@@ -168,9 +171,10 @@
 
                 <!-- Bak Merah (B3) - Hanya muncul untuk Kelas 2 & 3 -->
                 <template x-if="studentGrade !== '1'">
-                    <button @click="sortWaste('b3')" class="py-4.5 bg-gradient-to-b from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white rounded-3xl shadow-md border-b-4 border-red-700 flex flex-col items-center justify-center gap-1 tap-scale">
+                    <button @click="sortWaste('b3')" class="py-4.5 bg-gradient-to-b from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white rounded-3xl shadow-md border-b-4 border-red-700 flex flex-col items-center justify-center gap-0.5 tap-scale px-1">
                         <span class="text-3xl">🔴</span>
-                        <span class="font-fredoka font-bold text-xs uppercase tracking-wider">B3</span>
+                        <span class="font-fredoka font-bold text-xs uppercase tracking-wider leading-none">B3</span>
+                        <span class="text-[7.5px] font-bold opacity-90 uppercase tracking-tight text-center leading-none mt-0.5">Bahan Berbahaya & Beracun</span>
                     </button>
                 </template>
             </div>
@@ -226,7 +230,7 @@
                     <template x-for="item in mistakeList">
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
                             <!-- Image Thumbnail -->
-                            <img :src="item.image" class="w-10 h-10 object-contain bg-white rounded-lg border border-gray-100 p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/100?text=';">
+                            <img :src="getImageUrl(item.image)" class="w-10 h-10 object-contain bg-white rounded-lg border border-gray-100 p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/100?text=';">
                             <div class="flex-1 min-w-0">
                                 <h5 x-text="item.name" class="font-bold text-xs text-gray-800 truncate">Kulit Telur</h5>
                                 <p class="text-[9px] text-red-500 font-semibold mt-0.5">
@@ -251,40 +255,40 @@
         </div>
 
         <!-- ================= FASE 3.5: POP-UP BELAJAR MODAL (Belajar Mandiri) ================= -->
-        <div x-show="showBelajarModal" class="absolute inset-0 bg-emerald-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-6" x-cloak>
-            <div class="bg-white rounded-[2.5rem] p-6 text-center w-full max-w-sm border-4 border-emerald-500 shadow-2xl flex flex-col items-center justify-between space-y-5 animate-scale-in">
+        <div x-show="showBelajarModal" class="absolute inset-0 bg-emerald-950/75 backdrop-blur-sm z-50 flex items-center justify-center p-4" x-cloak>
+            <div class="bg-white rounded-[2rem] p-5 text-center w-full max-w-sm border-4 border-emerald-500 shadow-2xl flex flex-col items-center justify-between space-y-4 animate-scale-in">
                 
                 <!-- Status Header -->
                 <div>
-                    <span x-show="lastAnswerCorrect" class="text-5xl block animate-bounce">🎉</span>
-                    <span x-show="!lastAnswerCorrect" class="text-5xl block animate-pulse">😢</span>
-                    <h3 x-text="lastAnswerCorrect ? 'HEBAT! BENAR!' : 'YAH, KURANG TEPAT!'" :class="lastAnswerCorrect ? 'text-emerald-600' : 'text-red-500'" class="font-fredoka font-extrabold text-xl mt-2 tracking-wider"></h3>
+                    <span x-show="lastAnswerCorrect" class="text-4xl block animate-bounce">🎉</span>
+                    <span x-show="!lastAnswerCorrect" class="text-4xl block animate-pulse">😢</span>
+                    <h3 x-text="lastAnswerCorrect ? 'HEBAT! BENAR!' : 'YAH, KURANG TEPAT!'" :class="lastAnswerCorrect ? 'text-emerald-600' : 'text-red-500'" class="font-fredoka font-extrabold text-lg mt-1 tracking-wider"></h3>
                 </div>
 
                 <!-- Objek / Sampah info -->
-                <div class="bg-emerald-50 p-4 rounded-3xl border border-emerald-100 flex items-center justify-center w-28 h-28 shadow-inner">
+                <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100 flex items-center justify-center w-20 h-20 shadow-inner">
                     <template x-if="lastQuestion">
-                        <img :src="lastQuestion.gambar" :alt="lastQuestion.nama_sampah" class="w-full h-full object-contain">
+                        <img :src="getImageUrl(lastQuestion.gambar)" :alt="lastQuestion.nama_sampah" class="w-full h-full object-contain">
                     </template>
                 </div>
 
-                <div class="space-y-1">
-                    <h4 x-text="lastQuestion ? lastQuestion.nama_sampah : ''" class="font-fredoka font-bold text-lg text-emerald-950 uppercase tracking-wide"></h4>
+                <div class="space-y-0.5">
+                    <h4 x-text="lastQuestion ? lastQuestion.nama_sampah : ''" class="font-fredoka font-bold text-base text-emerald-950 uppercase tracking-wide"></h4>
                     <div>
-                        <span x-show="lastQuestion && lastQuestion.kategori === 'organik'" class="px-3 py-1 text-[10px] font-bold text-emerald-800 bg-emerald-100 rounded-full border border-emerald-200">Kategori: Organik 🟢</span>
-                        <span x-show="lastQuestion && lastQuestion.kategori === 'anorganik'" class="px-3 py-1 text-[10px] font-bold text-yellow-800 bg-yellow-100 rounded-full border border-yellow-200">Kategori: Anorganik 🟡</span>
-                        <span x-show="lastQuestion && lastQuestion.kategori === 'b3'" class="px-3 py-1 text-[10px] font-bold text-red-800 bg-red-100 rounded-full border border-red-200">Kategori: B3 🔴</span>
+                        <span x-show="lastQuestion && lastQuestion.kategori === 'organik'" class="px-2.5 py-0.5 text-[9px] font-bold text-emerald-800 bg-emerald-100 rounded-full border border-emerald-200">Kategori: Organik 🟢</span>
+                        <span x-show="lastQuestion && lastQuestion.kategori === 'anorganik'" class="px-2.5 py-0.5 text-[9px] font-bold text-yellow-800 bg-yellow-100 rounded-full border border-yellow-200">Kategori: Anorganik 🟡</span>
+                        <span x-show="lastQuestion && lastQuestion.kategori === 'b3'" class="px-2.5 py-0.5 text-[9px] font-bold text-red-800 bg-red-100 rounded-full border border-red-200">Kategori: B3 🔴</span>
                     </div>
                 </div>
 
                 <!-- Fakta Edukasi Text -->
-                <div class="bg-gray-50 rounded-2xl p-4 text-xs font-semibold text-gray-700 leading-relaxed border border-gray-100 text-left">
+                <div class="bg-gray-50 rounded-2xl p-3.5 text-[11px] font-semibold text-gray-700 leading-relaxed border border-gray-100 text-left w-full">
                     <p x-text="lastQuestion ? lastQuestion.fakta_edukasi : ''"></p>
                 </div>
 
                 <!-- Lanjut Button -->
-                <button @click="nextFromBelajarModal()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-fredoka font-bold text-base rounded-2xl shadow-md border-b-4 border-emerald-700 transition duration-100 tap-scale flex items-center justify-center gap-1">
-                    Lanjut Bermain <span class="text-lg">➡️</span>
+                <button @click="nextFromBelajarModal()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-fredoka font-bold text-sm rounded-2xl shadow-md border-b-4 border-emerald-700 transition duration-100 tap-scale flex items-center justify-center gap-1">
+                    Lanjut Bermain <span class="text-sm">➡️</span>
                 </button>
             </div>
         </div>
@@ -297,6 +301,10 @@
             return {
                 // Sesi data dari server
                 sessionCode: '{{ $session->game_code }}',
+                getImageUrl(path) {
+                    if (!path) return 'https://placehold.co/100?text=';
+                    return path.startsWith('/') ? path : '/' + path;
+                },
                 allQuestions: @json($questions),
                 gameMode: '{{ $session->game_mode }}',
                 isStartedFromServer: {{ $session->is_started ? 'true' : 'false' }},
@@ -370,7 +378,7 @@
 
                     this.allQuestions.forEach((q) => {
                         const img = new Image();
-                        img.src = q.gambar;
+                        img.src = this.getImageUrl(q.gambar);
                         img.onload = () => {
                             loaded++;
                             this.loadingProgress = Math.round((loaded / total) * 100);

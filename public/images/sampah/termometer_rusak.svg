@@ -1,0 +1,10 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Broken thermometer -->
+            <line x1="25" y1="75" x2="65" y2="35" stroke="#9ca3af" stroke-width="8" stroke-linecap="round" />
+            <!-- Mercury red bulb -->
+            <circle cx="25" cy="75" r="8" fill="#ef4444" />
+            <!-- Crack line -->
+            <path d="M 42 58 L 48 58 L 46 50 L 52 50" stroke="#ef4444" stroke-width="3" fill="none" />
+            <!-- Drops -->
+            <circle cx="15" cy="80" r="3" fill="#ef4444" />
+        </svg>

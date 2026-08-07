@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 35 30 L 65 30 L 65 80 C 65 83 62 85 58 85 L 35 85 C 31 85 28 83 28 80 L 28 45 L 35 30 Z" fill="#f43f5e" stroke="#be123c" stroke-width="4" />
+            <!-- Cap -->
+            <rect x="42" y="20" width="16" height="10" fill="#3b82f6" />
+            <!-- Handle hole -->
+            <rect x="48" y="45" width="10" height="20" rx="4" fill="#ecf7f4" stroke="#be123c" stroke-width="2" />
+        </svg>

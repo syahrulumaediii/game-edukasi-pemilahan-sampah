@@ -1,0 +1,10 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Spray can -->
+            <rect x="38" y="28" width="24" height="58" rx="4" fill="#a855f7" stroke="#7e22ce" stroke-width="3" />
+            <path d="M 38 28 C 38 22 62 22 62 28 Z" fill="#d1d5db" stroke="#7e22ce" stroke-width="2" />
+            <!-- Cap/nozzle -->
+            <rect x="47" y="16" width="6" height="6" fill="#ef4444" />
+            <!-- Poison skull hint or cross -->
+            <line x1="44" y1="45" x2="56" y2="57" stroke="#ffffff" stroke-width="4" />
+            <line x1="56" y1="45" x2="44" y2="57" stroke="#ffffff" stroke-width="4" />
+        </svg>

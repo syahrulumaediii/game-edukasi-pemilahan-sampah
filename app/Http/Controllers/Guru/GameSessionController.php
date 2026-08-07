@@ -7,6 +7,7 @@ use App\Models\GameSession;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class GameSessionController extends Controller
 {
@@ -15,7 +16,10 @@ class GameSessionController extends Controller
      */
     public function index()
     {
-        $sessions = GameSession::where('user_id', auth()->id())
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $sessions = GameSession::where('user_id', $user->id)
             ->withCount('questions', 'gameScores')
             ->latest()
             ->paginate(10);
@@ -36,18 +40,21 @@ class GameSessionController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'game_mode' => ['required', 'in:quizizz,belajar,duel'],
         ]);
 
-        // Generate kode game unik
+        // Generate kode game unik (6 karakter huruf/angka acak agar mudah diketik anak SD)
         do {
-            $gameCode = 'DETEKTIF-' . strtoupper(Str::random(4));
+            $gameCode = strtoupper(Str::random(6));
         } while (GameSession::where('game_code', $gameCode)->exists());
 
         $session = GameSession::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'title' => $request->title,
             'game_code' => $gameCode,
             'is_active' => true,
@@ -73,7 +80,9 @@ class GameSessionController extends Controller
      */
     public function show(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -106,7 +115,10 @@ class GameSessionController extends Controller
      */
     public function edit(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -118,7 +130,10 @@ class GameSessionController extends Controller
      */
     public function update(Request $request, GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -142,7 +157,10 @@ class GameSessionController extends Controller
      */
     public function destroy(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -156,7 +174,10 @@ class GameSessionController extends Controller
      */
     public function importDefaultQuestions(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -182,7 +203,10 @@ class GameSessionController extends Controller
      */
     public function printQr(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
@@ -194,14 +218,17 @@ class GameSessionController extends Controller
      */
     public function exportScores(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 
         $scores = $session->gameScores()->orderByDesc('skor_akhir')->get();
-        
+
         $filename = 'rekap_nilai_' . Str::slug($session->title) . '_' . date('Ymd_His') . '.csv';
-        
+
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
             'Content-Disposition' => "attachment; filename=\"$filename\"",
@@ -210,12 +237,12 @@ class GameSessionController extends Controller
             'Expires' => '0',
         ];
 
-        $callback = function() use ($scores) {
+        $callback = function () use ($scores) {
             $file = fopen('php://output', 'w');
-            
+
             // Tambahkan BOM agar Excel membaca karakter UTF-8 dengan benar
             fputs($file, "\xEF\xBB\xBF");
-            
+
             // Header kolom
             fputcsv($file, ['Peringkat', 'Nama Siswa', 'Kelas SD', 'Jawaban Benar', 'Total Sampah', 'Skor Akhir', 'Waktu Bermain'], ';');
 
@@ -242,7 +269,10 @@ class GameSessionController extends Controller
      */
     public function toggleStatus(GameSession $session)
     {
-        if ($session->user_id !== auth()->id()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($session->user_id !== $user->id) {
             abort(403);
         }
 

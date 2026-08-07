@@ -3,13 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    $role = auth()->user()->role;
-    if ($role === 'super_admin') {
+    /** @var \App\Models\User $user */
+    $user = Auth::user();
+    if ($user->role === 'super_admin') {
         return redirect()->route('admin.dashboard');
     }
     return redirect()->route('guru.dashboard');

@@ -11,9 +11,9 @@
                 <a href="{{ route('play', $session->game_code) }}" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-fredoka font-semibold text-xs rounded-xl shadow-md transition duration-150 flex items-center">
                     <span class="mr-1.5 text-base">🎮</span> Mulai Game
                 </a>
-                <a href="{{ route('guru.sessions.print', $session) }}" target="_blank" class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-fredoka font-semibold text-xs rounded-xl border border-emerald-200 transition duration-150 flex items-center">
+                {{-- <a href="{{ route('guru.sessions.print', $session) }}" target="_blank" class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-fredoka font-semibold text-xs rounded-xl border border-emerald-200 transition duration-150 flex items-center">
                     <span class="mr-1.5 text-base">🖨️</span> Cetak Stiker QR
-                </a>
+                </a> --}}
                 <a href="{{ route('play.live-leaderboard', $session->game_code) }}" target="_blank" class="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-fredoka font-semibold text-xs rounded-xl shadow-md transition duration-150 flex items-center">
                     <span class="mr-1.5 text-base">📺</span> Mode Proyektor Kelas
                 </a>
@@ -148,7 +148,7 @@
             <!-- TAB 1: HASIL SKOR KELAS -->
             <div x-show="tab === 'scores'" class="bg-white rounded-3xl p-6 shadow-md border border-gray-100">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-fredoka font-bold text-lg text-gray-800">Rekapitulasi Nilai Siswa SD (Kelas 1–3)</h3>
+                    <h3 class="font-fredoka font-bold text-lg text-gray-800">Rekapitulasi Nilai Siswa SD</h3>
                     @if($session->gameScores->count() > 0)
                         <a href="{{ route('guru.sessions.export', $session) }}" class="px-3.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-fredoka font-semibold rounded-xl text-xs border border-emerald-100 transition duration-150 flex items-center">
                             📥 Ekspor Excel (CSV)

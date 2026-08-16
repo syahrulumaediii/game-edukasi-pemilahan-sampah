@@ -65,7 +65,7 @@ class GameController extends Controller
 
         $request->validate([
             'nama_siswa' => ['required', 'string', 'max:255'],
-            'kelas' => ['required', 'in:1,2,3'],
+            'kelas' => ['required', 'in:2,3,4-6'],
             'skor_akhir' => ['required', 'integer', 'min:0'],
             'jawaban_benar' => ['required', 'integer', 'min:0'],
             'total_sampah' => ['required', 'integer', 'min:1'],

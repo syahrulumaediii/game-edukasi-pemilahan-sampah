@@ -52,7 +52,7 @@
                     <div>
                         <x-input-label for="fakta_edukasi" :value="__('Fakta Edukasi Pendek (Maksimal 1 Kalimat)')" />
                         <textarea id="fakta_edukasi" name="fakta_edukasi" required rows="3" class="block mt-1 w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm" placeholder="Contoh: Kulit pisang bisa diolah jadi pupuk kompos yang bagus untuk tanaman!">{{ old('fakta_edukasi', $question->fakta_edukasi) }}</textarea>
-                        <p class="text-xs text-gray-400 mt-1">Berikan kalimat ringkas yang mudah dibaca oleh siswa Kelas 1-3 SD.</p>
+                        <p class="text-xs text-gray-400 mt-1">Berikan kalimat ringkas yang mudah dibaca oleh siswa SD.</p>
                         <x-input-error :messages="$errors->get('fakta_edukasi')" class="mt-2" />
                     </div>
 

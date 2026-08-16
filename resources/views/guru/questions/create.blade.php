@@ -42,7 +42,7 @@
                     <div>
                         <x-input-label for="fakta_edukasi" :value="__('Fakta Edukasi Pendek (Maksimal 1 Kalimat)')" />
                         <textarea id="fakta_edukasi" name="fakta_edukasi" required rows="3" class="block mt-1 w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm" placeholder="Contoh: Kertas struk belanja tidak bisa didaur ulang karena mengandung bahan kimia thermal sablon!">{{ old('fakta_edukasi') }}</textarea>
-                        <p class="text-xs text-gray-400 mt-1">Tulis kalimat ringkas yang menarik dan mudah dipahami siswa Kelas 1-3 SD.</p>
+                        <p class="text-xs text-gray-400 mt-1">Tulis kalimat ringkas yang menarik dan mudah dipahami siswa SD.</p>
                         <x-input-error :messages="$errors->get('fakta_edukasi')" class="mt-2" />
                     </div>
 

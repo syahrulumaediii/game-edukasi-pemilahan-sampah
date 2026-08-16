@@ -1,0 +1,80 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<h2 class="sr-only">Pemutar melodi ceria untuk backsound game Detektif Sampah</h2>
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:1.5rem 0;">
+  <div style="display:flex;gap:10px;">
+    <button id="playBtn" style="display:flex;align-items:center;gap:6px;padding:10px 20px;"><i class="ti ti-player-play" aria-hidden="true"></i><span id="playLabel">Play melodi</span></button>
+    <button id="stopBtn" style="display:flex;align-items:center;gap:6px;padding:10px 20px;"><i class="ti ti-player-pause" aria-hidden="true"></i>Stop</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;width:100%;max-width:320px;">
+    <label style="font-size:13px;color:var(--text-secondary);">Tempo</label>
+    <input type="range" id="tempo" min="100" max="160" step="1" value="132" style="flex:1;"/>
+    <span id="tempoOut" style="font-size:13px;font-weight:500;min-width:44px;">132 bpm</span>
+  </div>
+  <div id="viz" style="display:flex;gap:4px;height:36px;align-items:flex-end;">
+  </div>
+</div>
+<script>
+const melody = ["C5","E5","G5","E5","D5","F5","A5","F5","E5","G5","C6","G5","D5","F5","A5","G5"];
+const bassline = ["C3","C3","G3","G3","F3","F3","C3","C3"];
+const viz = document.getElementById('viz');
+melody.forEach(()=>{ const b=document.createElement('div'); b.style.width='8px'; b.style.height='8px'; b.style.borderRadius='2px'; b.style.background='var(--surface-1)'; b.style.transition='height 0.1s'; viz.appendChild(b); });
+const bars = viz.children;
+
+let synth, bassSynth, seq, bassSeq;
+let playing = false;
+
+function setup(){
+  synth = new Tone.Synth({
+    oscillator: { type: "triangle" },
+    envelope: { attack: 0.01, decay: 0.15, sustain: 0.2, release: 0.3 }
+  }).toDestination();
+  synth.volume.value = -6;
+
+  bassSynth = new Tone.Synth({
+    oscillator: { type: "sine" },
+    envelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.4 }
+  }).toDestination();
+  bassSynth.volume.value = -10;
+
+  let idx = 0;
+  seq = new Tone.Sequence((time, note) => {
+    synth.triggerAttackRelease(note, "8n", time);
+    const bar = bars[idx % bars.length];
+    bar.style.height = '32px';
+    bar.style.background = 'var(--fill-accent)';
+    setTimeout(()=>{ bar.style.height='8px'; bar.style.background='var(--surface-1)'; }, 150);
+    idx++;
+  }, melody, "8n");
+
+  bassSeq = new Tone.Sequence((time, note) => {
+    bassSynth.triggerAttackRelease(note, "4n", time);
+  }, bassline, "4n");
+}
+
+document.getElementById('playBtn').addEventListener('click', async () => {
+  await Tone.start();
+  if (!synth) setup();
+  if (!playing) {
+    Tone.Transport.bpm.value = document.getElementById('tempo').value;
+    seq.start(0);
+    bassSeq.start(0);
+    Tone.Transport.start();
+    playing = true;
+    document.getElementById('playLabel').textContent = 'Lagi main...';
+  }
+});
+
+document.getElementById('stopBtn').addEventListener('click', () => {
+  Tone.Transport.stop();
+  if (seq) seq.stop();
+  if (bassSeq) bassSeq.stop();
+  playing = false;
+  document.getElementById('playLabel').textContent = 'Play melodi';
+  Array.from(bars).forEach(b=>{ b.style.height='8px'; b.style.background='var(--surface-1)'; });
+});
+
+document.getElementById('tempo').addEventListener('input', (e) => {
+  document.getElementById('tempoOut').textContent = e.target.value + ' bpm';
+  Tone.Transport.bpm.value = e.target.value;
+});
+</script>

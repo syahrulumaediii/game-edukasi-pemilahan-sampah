@@ -21,6 +21,9 @@
             }
         </style>
 
+        <!-- Hotwire Turbo Drive (Instant SPA Navigation) -->
+        <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@7.3.0/dist/turbo.es2017-umd.js"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

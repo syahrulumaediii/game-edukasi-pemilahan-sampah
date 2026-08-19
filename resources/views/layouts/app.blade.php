@@ -12,6 +12,17 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+        <!-- Hotwire Turbo Drive (Instant SPA Navigation) -->
+        <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@7.3.0/dist/turbo.es2017-umd.js"></script>
+
+        <style>
+            .turbo-progress-bar {
+                height: 4px !important;
+                background: linear-gradient(90deg, #10b981, #34d399, #059669) !important;
+                box-shadow: 0 0 10px #10b981, 0 0 5px #059669 !important;
+            }
+        </style>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

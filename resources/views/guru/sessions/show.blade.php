@@ -119,13 +119,19 @@
                     <div class="pt-4 border-t border-gray-50 flex flex-col gap-2">
                         <!-- Tampilkan tombol Mulai Duel jika mode game nya adalah duel -->
                         <template x-if="gameMode === 'duel'">
-                            <button @click="toggleDuel()" :class="duelStarted ? 'bg-red-650 hover:bg-red-700' : 'bg-emerald-650 hover:bg-emerald-700'" class="w-full text-center py-2.5 text-white font-fredoka font-bold text-xs rounded-xl shadow-sm border-b-2 transition duration-150">
-                                <span x-show="!duelStarted">⚡ Mulai Duel (Izinkan Murid)</span>
-                                <span x-show="duelStarted" x-cloak>🛑 Hentikan Duel (Kunci Layar)</span>
+                            <button @click="toggleDuel()" 
+                                    :style="duelStarted ? 'background-color: #dc2626; color: #ffffff; border-color: #991b1b;' : 'background-color: #059669; color: #ffffff; border-color: #047857;'"
+                                    class="w-full text-center py-3 text-white font-fredoka font-bold text-xs rounded-xl shadow-md border-b-4 transition duration-150 tap-scale">
+                                <span x-show="!duelStarted" class="flex items-center justify-center gap-1.5">
+                                    <span>⚡</span> <span>Mulai Duel (Izinkan Murid)</span>
+                                </span>
+                                <span x-show="duelStarted" x-cloak class="flex items-center justify-center gap-1.5">
+                                    <span>🛑</span> <span>Hentikan Duel (Kunci Layar)</span>
+                                </span>
                             </button>
                         </template>
 
-                        <a href="{{ route('guru.sessions.edit', $session) }}" class="text-center py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 font-fredoka font-semibold text-xs rounded-xl transition duration-150 border border-gray-100">
+                        <a href="{{ route('guru.sessions.edit', $session) }}" class="text-center py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-fredoka font-bold text-xs rounded-xl transition duration-150 border-b-2 border-slate-300">
                             Edit Sesi & Ubah Mode
                         </a>
                     </div>

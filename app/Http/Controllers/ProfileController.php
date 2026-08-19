@@ -16,8 +16,16 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $totalSessions = \App\Models\GameSession::where('user_id', $user->id)->count();
+        $totalPlays = \App\Models\GameScore::whereHas('gameSession', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->count();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'totalSessions' => $totalSessions,
+            'totalPlays' => $totalPlays,
         ]);
     }
 

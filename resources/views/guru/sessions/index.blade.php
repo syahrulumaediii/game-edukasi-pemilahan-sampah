@@ -33,6 +33,7 @@
                                 <th class="py-3">Nama Kelas / Sesi</th>
                                 <th class="py-3">Kode Game</th>
                                 <th class="py-3">Jumlah Soal</th>
+                                <th class="py-3">Mode Game</th>
                                 <th class="py-3">Siswa Bermain</th>
                                 <th class="py-3">Status</th>
                                 <th class="py-3">Dibuat Pada</th>
@@ -48,6 +49,21 @@
                                         <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 font-medium rounded-full text-xs">
                                             {{ $session->questions_count }} Soal
                                         </span>
+                                    </td>
+                                    <td class="py-3">
+                                        @if($session->game_mode === 'duel')
+                                            <span class="px-2.5 py-1 text-xs font-bold text-purple-800 bg-purple-50 border border-purple-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                ⚔️ Duel
+                                            </span>
+                                        @elseif($session->game_mode === 'belajar')
+                                            <span class="px-2.5 py-1 text-xs font-bold text-teal-800 bg-teal-50 border border-teal-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                📖 Belajar
+                                            </span>
+                                        @else
+                                            <span class="px-2.5 py-1 text-xs font-bold text-blue-800 bg-blue-50 border border-blue-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                🎯 Quizizz
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="py-3">
                                         <span class="px-2.5 py-1 bg-blue-50 text-blue-700 font-medium rounded-full text-xs">
@@ -96,7 +112,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="py-8 text-center text-gray-400">Belum ada sesi kelas dibuat.</td>
+                                    <td colspan="8" class="py-8 text-center text-gray-400">Belum ada sesi kelas dibuat.</td>
                                 </tr>
                             @endforelse
                         </tbody>

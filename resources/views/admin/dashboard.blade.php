@@ -86,6 +86,7 @@
                                     <th class="py-3">Nama Sesi</th>
                                     <th class="py-3">Guru & Sekolah</th>
                                     <th class="py-3">Kode Game</th>
+                                    <th class="py-3">Mode Game</th>
                                     <th class="py-3">Status</th>
                                 </tr>
                             </thead>
@@ -103,6 +104,21 @@
                                             </span>
                                         </td>
                                         <td class="py-3">
+                                            @if($session->game_mode === 'duel')
+                                                <span class="px-2.5 py-0.5 text-[10px] font-bold text-purple-900 bg-purple-100/90 border border-purple-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    ⚔️ Mode Duel
+                                                </span>
+                                            @elseif($session->game_mode === 'belajar')
+                                                <span class="px-2.5 py-0.5 text-[10px] font-bold text-teal-900 bg-teal-100/90 border border-teal-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    📖 Belajar
+                                                </span>
+                                            @else
+                                                <span class="px-2.5 py-0.5 text-[10px] font-bold text-blue-900 bg-blue-100/90 border border-blue-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    🎯 Quizizz
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="py-3">
                                             @if($session->is_active)
                                                 <span class="px-2 py-0.5 text-[10px] font-bold text-emerald-900 bg-emerald-200/70 rounded-full uppercase">Aktif</span>
                                             @else
@@ -112,7 +128,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="py-8 text-center text-gray-500">
+                                        <td colspan="5" class="py-8 text-center text-gray-500">
                                             <span class="text-3xl block mb-1">🎮</span>
                                             Belum ada sesi game dibuat.
                                         </td>

@@ -233,6 +233,115 @@
                 opacity: 0;
             }
         }
+        /* --- MODE DUEL CYBERPUNK & MECHANICAL KEYBOARD SWITCH STYLES --- */
+        .cyber-duel-bg {
+            background: radial-gradient(circle at center, #0f2b3e 0%, #081321 70%, #030810 100%);
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Metallic Top Frame Header Badge */
+        .metallic-header {
+            background: linear-gradient(180deg, #374151 0%, #1f2937 25%, #111827 75%, #030712 100%);
+            border: 3px solid #6b7280;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        .metallic-badge-title {
+            background: linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
+            border: 2px solid #06b6d4;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mechanical Switch Housing Plate */
+        .mech-tray {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 1.5rem;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.5);
+            padding: 8px;
+        }
+
+        /* Mechanical Keycap 3D Component */
+        .mech-keycap {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border-radius: 1rem;
+            padding: 10px 4px 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.12s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+        .mech-keycap:hover {
+            transform: translateY(-2px);
+        }
+        .mech-keycap:active {
+            transform: translateY(3px) scale(0.97);
+        }
+
+        /* LED Glow Accents for P1 (Red) and P2 (Blue) */
+        .mech-keycap-p1 {
+            border: 2px solid #ef4444;
+            box-shadow: 0 0 16px rgba(239, 68, 68, 0.6), inset 0 0 12px rgba(239, 68, 68, 0.3), 0 4px 0 #991b1b;
+        }
+        .mech-keycap-p1:active {
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.8), inset 0 0 16px rgba(239, 68, 68, 0.5), 0 1px 0 #991b1b;
+        }
+
+        .mech-keycap-p2 {
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.6), inset 0 0 12px rgba(59, 130, 246, 0.3), 0 4px 0 #1e40af;
+        }
+        .mech-keycap-p2:active {
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.8), inset 0 0 16px rgba(59, 130, 246, 0.5), 0 1px 0 #1e40af;
+        }
+
+        /* Key Switch Mechanical Stem (The Switch Keycap Stem Visual) */
+        .switch-stem {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: #ffffff;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 3px 6px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .switch-stem-green {
+            background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+        }
+        .switch-stem-yellow {
+            background: linear-gradient(180deg, #eab308 0%, #a16207 100%);
+            color: #000000;
+        }
+        .switch-stem-red {
+            background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+        }
+
+        /* Pulsing Glow Arrow Animations */
+        @keyframes pulseArrowRed {
+            0%, 100% { transform: translateX(0); opacity: 0.6; }
+            50% { transform: translateX(4px); opacity: 1; text-shadow: 0 0 10px #ef4444; }
+        }
+        @keyframes pulseArrowBlue {
+            0%, 100% { transform: translateX(0); opacity: 0.6; }
+            50% { transform: translateX(-4px); opacity: 1; text-shadow: 0 0 10px #3b82f6; }
+        }
+        .animate-pulse-arrow-red {
+            animation: pulseArrowRed 1.2s infinite ease-in-out;
+        }
+        .animate-pulse-arrow-blue {
+            animation: pulseArrowBlue 1.2s infinite ease-in-out;
+        }
     </style>
 </head>
 <body x-data="gameEngine()" x-init="preloadAssets()" @click="spawnClickParticle($event); startBgmOnFirstInteraction()" class="flex flex-col items-center justify-center min-h-screen p-4 overflow-x-hidden">
@@ -386,8 +495,68 @@
         </div>
     </div>
 
+    <!-- HIMBAUAN MODE LANDSCAPE KHUSUS HP (UI PRO & HIGH CONTRAST SOLID) -->
+    <div x-show="gameMode === 'duel' && isMobile && isPortrait && !dismissMobileNotice" 
+         x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         @click.self="dismissMobileNotice = true"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 text-center select-none"
+         style="background-color: rgba(3, 7, 18, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"
+         x-cloak>
+        
+        <!-- Solid Dark Card Container (100% Opaque, No Bleed-Through) -->
+        <div class="rounded-3xl p-6 sm:p-7 max-w-[300px] w-full text-center relative overflow-hidden"
+             style="background-color: #111c2a; border: 2px solid #10b981; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(16, 185, 129, 0.35);">
+            
+            <!-- Close Button Top Right -->
+            <button type="button" @click="dismissMobileNotice = true" title="Tutup Himbauan" 
+                    class="absolute top-3 right-3 text-gray-400 hover:text-white text-xs font-bold w-7 h-7 rounded-full flex items-center justify-center transition"
+                    style="background-color: #1e293b; border: 1px solid #334155;">✕</button>
+
+            <!-- Animated Rotate Phone Visual SVG -->
+            <div class="relative w-28 h-24 mx-auto mb-4 flex items-center justify-center">
+                <!-- Circular Green Arrow SVG -->
+                <svg class="w-24 h-24 animate-spin" style="animation-duration: 7s;" viewBox="0 0 100 100" fill="none">
+                    <!-- Curved Green Arrow Line -->
+                    <path d="M 50 12 A 38 38 0 0 1 88 50" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M 88 50 L 95 40 M 88 50 L 78 43" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                    
+                    <path d="M 50 88 A 38 38 0 0 1 12 50" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M 12 50 L 5 60 M 12 50 L 22 57" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+
+                <!-- Phone Portrait (Pink Outline, Top-Left) -->
+                <div class="absolute w-9 h-16 rounded-xl transform -translate-y-3 -translate-x-2 rotate-[-20deg]"
+                     style="border: 2.5px solid #ec4899; background-color: rgba(131, 24, 67, 0.7); box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></div>
+
+                <!-- Phone Landscape (Emerald Outline & Solid Dark Body, Bottom-Right) -->
+                <div class="absolute w-16 h-9 rounded-xl flex items-center justify-center transform translate-y-2 translate-x-1"
+                     style="border: 2.5px solid #10b981; background-color: #030712; box-shadow: 0 6px 15px rgba(0,0,0,0.8);">
+                    <div class="w-2 h-2 rounded-full" style="background-color: #34d399; box-shadow: 0 0 8px #34d399;"></div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-fredoka font-extrabold text-lg sm:text-xl tracking-wider uppercase leading-snug mb-2"
+                style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                MAINKAN DALAM<br>LANDSCAPE
+            </h3>
+
+            <!-- Horizontal Line Divider -->
+            <div class="w-full my-3" style="height: 2px; background: linear-gradient(90deg, transparent, #334155, transparent);"></div>
+
+            <!-- Body Text -->
+            <p class="text-xs sm:text-sm font-semibold leading-relaxed px-1"
+               style="color: #cbd5e1; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">
+                Untuk pengalaman 2 player yang terbaik, mohon putar HP kamu ke posisi mendatar.
+            </p>
+        </div>
+    </div>
+
     <!-- GAME ENGINE CONTAINER -->
-    <div class="w-full bg-white rounded-[2.5rem] shadow-2xl border-4 border-emerald-500 overflow-hidden relative transition-all duration-300" :class="gameMode === 'duel' ? 'max-w-4xl' : 'max-w-md'" x-cloak>
+    <div class="w-full rounded-[2.5rem] shadow-2xl border-4 overflow-hidden relative transition-all duration-300" :class="gameMode === 'duel' ? 'max-w-5xl border-gray-700 bg-slate-900 text-white' : 'max-w-md border-emerald-500 bg-white'" x-cloak>
         
         <!-- ================= FASE 1: LOADING SCREEN ================= -->
         <div x-show="gameState === 'loading'" class="p-8 py-16 text-center space-y-6">
@@ -422,11 +591,32 @@
                     <p x-show="showNameError" class="text-xs text-red-500 font-bold mt-1">⚠️ Tolong tulis namamu dulu ya!</p>
                 </div>
 
-                <!-- Info khusus mode duel -->
+                <!-- Info & Opsi Peran Khusus Mode Duel -->
                 <template x-if="gameMode === 'duel'">
-                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-800 font-semibold flex items-start gap-2">
-                        <span class="text-base mt-0.5">ℹ️</span>
-                        <span>Mode <strong>Duel Kelas</strong>! Lawan kamu juga membuka halaman ini di device masing-masing. Setelah kamu siap, tunggu gurumu memulai duel secara bersamaan.</span>
+                    <div class="space-y-3">
+                        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-800 font-semibold flex items-start gap-2">
+                            <span class="text-base mt-0.5">ℹ️</span>
+                            <span>Mode <strong>Duel Kelas</strong>! Lawan kamu juga membuka halaman ini di device masing-masing. Pilihlah posisi bertandingmu!</span>
+                        </div>
+
+                        <!-- Opsi Peran Player -->
+                        <div>
+                            <label class="font-fredoka font-bold text-sm text-gray-700 block mb-1.5">Kamu Bermain Sebagai Apa?</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button type="button" @click="playerRole = 'p1'" :class="playerRole === 'p1' ? 'bg-red-500 text-white ring-4 ring-red-200 border-red-600' : 'bg-red-50 hover:bg-red-100 text-red-800 border-red-200'" class="py-2.5 px-1 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 shadow-xs tap-scale">
+                                    <span class="font-fredoka font-bold text-xs sm:text-sm">🔴 Pemain 1</span>
+                                    <span class="text-[8px] sm:text-[9px] font-semibold opacity-85 mt-0.5">Sisi Kiri (A,S,D)</span>
+                                </button>
+                                <button type="button" @click="playerRole = 'p2'" :class="playerRole === 'p2' ? 'bg-blue-500 text-white ring-4 ring-blue-200 border-blue-600' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border-blue-200'" class="py-2.5 px-1 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 shadow-xs tap-scale">
+                                    <span class="font-fredoka font-bold text-xs sm:text-sm">🔵 Pemain 2</span>
+                                    <span class="text-[8px] sm:text-[9px] font-semibold opacity-85 mt-0.5">Sisi Kanan (J,K,L)</span>
+                                </button>
+                                <button type="button" @click="playerRole = 'both'" :class="playerRole === 'both' ? 'bg-purple-600 text-white ring-4 ring-purple-200 border-purple-700' : 'bg-purple-50 hover:bg-purple-100 text-purple-800 border-purple-200'" class="py-2.5 px-1 flex flex-col items-center justify-center rounded-2xl transition duration-150 border-2 shadow-xs tap-scale">
+                                    <span class="font-fredoka font-bold text-xs sm:text-sm">👥 1 Layar</span>
+                                    <span class="text-[8px] sm:text-[9px] font-semibold opacity-85 mt-0.5">Berdua Luring</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </template>
 
@@ -531,43 +721,52 @@
 
             <!-- Top HUD (Mode Duel 1 Frame) -->
             <template x-if="gameMode === 'duel'">
-                <div class="p-4 sm:p-5 bg-emerald-50 border-b-2 border-emerald-100 flex items-center justify-between gap-4">
+                <div class="metallic-header p-3 sm:p-4 border-b-2 border-gray-700 flex items-center justify-between gap-2 sm:gap-4 relative z-20">
                     <!-- P1 Score on left -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-xl">🔴</span>
-                        <div>
-                            <span class="text-[9px] text-gray-400 font-bold uppercase tracking-wider block leading-none" x-text="p1Name">Pemain 1</span>
-                            <span x-text="p1Score" class="font-fredoka font-bold text-lg text-emerald-800">0</span>
+                    <div class="flex items-center gap-2 bg-gradient-to-r from-red-950/80 to-red-900/40 p-2 sm:px-3 sm:py-1.5 rounded-2xl border border-red-500/50 shadow-md">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-red-700 to-red-400 border border-red-300 shadow-[0_0_10px_#ef4444] flex items-center justify-center shrink-0">
+                            <span class="text-xs sm:text-sm">🔴</span>
                         </div>
-                        <span class="text-xs text-orange-600 font-bold ml-1" x-show="p1Combo >= 3" x-text="`🔥 x${p1Combo}`"></span>
+                        <div>
+                            <span class="text-[9px] sm:text-[10px] text-red-300 font-bold uppercase tracking-wider block leading-none" x-text="p1Name || 'PLAYER 1'">PLAYER 1</span>
+                            <span x-text="p1Score" class="font-fredoka font-extrabold text-base sm:text-xl text-white drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">0</span>
+                        </div>
+                        <span class="text-xs text-yellow-400 font-bold ml-1 animate-pulse" x-show="p1Combo >= 3" x-text="`🔥 x${p1Combo}`"></span>
                     </div>
 
-                    <!-- Shared Timer in Center -->
-                    <div class="flex flex-col items-center bg-white px-4 py-1.5 rounded-2xl border border-emerald-250 shadow-xs">
-                        <span class="text-[8px] text-gray-400 font-bold uppercase tracking-widest block leading-none">WAKTU</span>
-                        <span x-text="`${timer}s`" :class="timer <= 5 ? 'text-red-600 animate-pulse font-extrabold' : 'text-emerald-850 font-bold'" class="font-fredoka text-xl mt-0.5">45s</span>
+                    <!-- Center Title & Shared Timer Capsule -->
+                    <div class="flex flex-col items-center">
+                        <div class="metallic-badge-title px-3 sm:px-5 py-1 rounded-full text-center shadow-md mb-1">
+                            <span class="font-fredoka font-extrabold text-xs sm:text-sm md:text-base text-cyan-300 tracking-wider uppercase block leading-none" style="text-shadow: 0 0 10px rgba(6, 182, 212, 0.8);">DUEL PEMILAHAN SAMPAH</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 bg-gray-900/90 px-3 py-1 rounded-full border border-gray-700 shadow-inner">
+                            <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest leading-none">WAKTU:</span>
+                            <span x-text="`${timer}s`" :class="timer <= 5 ? 'text-red-500 animate-pulse font-extrabold' : 'text-cyan-400 font-bold'" class="font-fredoka text-sm sm:text-base leading-none">45s</span>
+                        </div>
                     </div>
 
                     <!-- P2 Score on right -->
-                    <div class="flex items-center gap-2 text-right justify-end">
-                        <span class="text-xs text-orange-600 font-bold mr-1" x-show="p2Combo >= 3" x-text="`🔥 x${p2Combo}`"></span>
+                    <div class="flex items-center gap-2 text-right justify-end bg-gradient-to-l from-blue-950/80 to-blue-900/40 p-2 sm:px-3 sm:py-1.5 rounded-2xl border border-blue-500/50 shadow-md">
+                        <span class="text-xs text-yellow-400 font-bold mr-1 animate-pulse" x-show="p2Combo >= 3" x-text="`🔥 x${p2Combo}`"></span>
                         <div>
-                            <span class="text-[9px] text-gray-400 font-bold uppercase tracking-wider block leading-none" x-text="p2Name">Pemain 2</span>
-                            <span x-text="p2Score" class="font-fredoka font-bold text-lg text-emerald-800">0</span>
+                            <span class="text-[9px] sm:text-[10px] text-blue-300 font-bold uppercase tracking-wider block leading-none" x-text="p2Name || 'PLAYER 2'">PLAYER 2</span>
+                            <span x-text="p2Score" class="font-fredoka font-extrabold text-base sm:text-xl text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">0</span>
                         </div>
-                        <span class="text-xl">🔵</span>
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-blue-700 to-blue-400 border border-blue-300 shadow-[0_0_10px_#3b82f6] flex items-center justify-center shrink-0">
+                            <span class="text-xs sm:text-sm">🔵</span>
+                        </div>
                     </div>
                 </div>
             </template>
 
             <!-- Progress Bar Waktu -->
-            <div class="w-full bg-gray-100 h-2">
-                <div class="bg-gradient-to-r h-2 transition-all duration-100" :class="timer <= 5 ? 'from-red-500 to-red-600' : 'from-emerald-400 to-teal-500'" :style="`width: ${(timer / maxTimer) * 100}%`"></div>
+            <div class="w-full bg-gray-900 h-2">
+                <div class="bg-gradient-to-r h-2 transition-all duration-100" :class="timer <= 5 ? 'from-red-500 to-red-600 shadow-[0_0_10px_#ef4444]' : 'from-cyan-400 to-teal-400 shadow-[0_0_10px_#06b6d4]'" :style="`width: ${(timer / maxTimer) * 100}%`"></div>
             </div>
 
             <!-- Single Player Arena (If not duel) -->
             <template x-if="gameMode !== 'duel'">
-                <div class="flex flex-col flex-1 justify-between">
+                <div class="flex flex-col flex-1 justify-between bg-white text-gray-800">
                     <!-- Banner Edukasi Informatif saat Salah Jawab -->
                     <div x-show="showWrongBanner" 
                          x-transition:enter="transition ease-out duration-250 transform" 
@@ -635,18 +834,32 @@
 
             <!-- Duel Player Arena (If duel) -->
             <template x-if="gameState === 'playing' && gameMode === 'duel'">
-                <div class="grid grid-cols-2 divide-x-4 divide-emerald-250 bg-gradient-to-b from-white to-emerald-50/10 flex-1">
+                <div class="cyber-duel-bg grid grid-cols-2 divide-x-2 divide-cyan-500/40 flex-1 relative overflow-hidden text-white">
+                    
+                    <!-- Center Vertical Neon Laser Beam -->
+                    <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-gradient-to-b from-cyan-400 via-cyan-300 to-teal-400 shadow-[0_0_15px_#06b6d4] pointer-events-none z-10"></div>
+
                     <!-- Player 1 (Left Column) -->
-                    <div class="flex flex-col justify-between p-4 relative" :class="p1IsShaking ? 'animate-subtle-shake' : ''">
-                        <!-- Player Name Tag -->
-                        <div class="text-center py-1.5 bg-red-500 text-white font-fredoka font-bold rounded-2xl text-[10px] sm:text-xs shadow-md select-none uppercase tracking-wide">
-                            🔴 Kiri: <span x-text="p1Name"></span> (TOMBOL: A, S, D)
+                    <div class="flex flex-col justify-between p-3 sm:p-5 relative transition-all" :class="[p1IsShaking ? 'animate-subtle-shake' : '', playerRole === 'p2' ? 'opacity-40 grayscale-[30%]' : '']">
+                        
+                        <!-- Lock Overlay if player is Player 2 -->
+                        <template x-if="playerRole === 'p2'">
+                            <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-[1.5px] z-30 flex flex-col items-center justify-center p-2 text-center">
+                                <span class="text-3xl animate-bounce">🔒</span>
+                                <span class="font-fredoka font-bold text-xs text-red-300 uppercase mt-1">Sisi Pemain 1</span>
+                                <span class="text-[9px] text-gray-300 font-medium">Hanya dapat dikontrol oleh Pemain 1</span>
+                            </div>
+                        </template>
+
+                        <!-- Progress Bar / Indicator P1 -->
+                        <div class="w-full bg-slate-900/90 rounded-full h-2.5 overflow-hidden border border-red-500/40 p-0.5">
+                            <div class="bg-gradient-to-r from-red-600 to-red-400 h-full rounded-full transition-all duration-200 shadow-[0_0_8px_#ef4444]" :style="`width: ${Math.min(100, (p1Score / 1000) * 100)}%`"></div>
                         </div>
 
-                        <!-- Trash display -->
-                        <div class="flex-1 flex flex-col items-center justify-center p-2">
-                            <!-- Kaca Pembesar Frame -->
-                            <div class="w-32 h-32 sm:w-40 sm:h-40 bg-white rounded-full border-6 border-red-500 shadow-md flex items-center justify-center relative overflow-hidden aspect-square transform hover:scale-[1.02] transition-transform duration-200">
+                        <!-- Trash display Card P1 -->
+                        <div class="flex-1 flex flex-col items-center justify-center py-2 sm:py-4">
+                            <!-- Image Frame -->
+                            <div class="w-28 h-28 sm:w-36 sm:h-36 bg-gray-200/90 rounded-3xl border-4 border-gray-400 shadow-[0_0_20px_rgba(239,68,68,0.3)] flex items-center justify-center relative overflow-hidden aspect-square transform hover:scale-[1.02] transition-transform duration-200">
                                 <template x-if="p1CurrentQuestion">
                                     <img :src="getImageUrl(p1CurrentQuestion.gambar)" 
                                          :alt="p1CurrentQuestion.nama_sampah" 
@@ -654,42 +867,73 @@
                                          x-on:error="$event.target.src='https://placehold.co/150?text=' + encodeURIComponent(p1CurrentQuestion ? p1CurrentQuestion.nama_sampah : 'Sampah')">
                                 </template>
                             </div>
-                            <!-- Label Nama Sampah -->
+                            <!-- Label Nama Sampah P1 -->
                             <template x-if="p1CurrentQuestion">
-                                <h3 x-text="p1CurrentQuestion.nama_sampah" class="font-fredoka font-bold text-base sm:text-lg text-emerald-950 mt-2.5 tracking-wide uppercase text-center px-1">Apel</h3>
+                                <h3 x-text="p1CurrentQuestion.nama_sampah" class="font-fredoka font-extrabold text-sm sm:text-base text-white mt-2.5 tracking-wider uppercase text-center px-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">OBAT KEDALUWARSA</h3>
                             </template>
                         </div>
 
-                        <!-- Sorting Buttons -->
-                        <div class="grid gap-3 mt-2" :class="(studentGrade === '2' || studentGrade === '3') ? 'grid-cols-2' : 'grid-cols-3'">
-                            <button @click="sortWaste('p1', 'organik')" class="py-3 bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-500 text-white rounded-2xl shadow-sm border-b-4 border-emerald-700 flex flex-col items-center justify-center tap-scale">
-                                <span class="text-2xl">🟢</span>
-                                <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">Organik (A)</span>
-                            </button>
-                            <button @click="sortWaste('p1', 'anorganik')" class="py-3 bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 text-white rounded-2xl shadow-sm border-b-4 border-yellow-700 flex flex-col items-center justify-center tap-scale">
-                                <span class="text-2xl">🟡</span>
-                                <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">Anorg (S)</span>
-                            </button>
-                            <template x-if="studentGrade === '4-6'">
-                                <button @click="sortWaste('p1', 'b3')" class="py-3 bg-gradient-to-b from-red-400 to-red-600 hover:from-red-500 text-white rounded-2xl shadow-sm border-b-4 border-red-700 flex flex-col items-center justify-center tap-scale">
-                                    <span class="text-2xl">🔴</span>
-                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">B3 (D)</span>
+                        <!-- Mechanical Keyboard Switches P1 -->
+                        <div class="space-y-1.5 z-20">
+                            <!-- Hint Arrow Text -->
+                            <div class="flex items-center justify-start gap-1 text-[9px] sm:text-[10px] text-gray-300 italic font-semibold pl-1">
+                                <span class="text-red-400 animate-pulse-arrow-red font-bold">>>></span>
+                                <span>Tekan Tombol Keyboard yang Sesuai</span>
+                            </div>
+
+                            <!-- Switches Housing Tray -->
+                            <div class="mech-tray grid gap-2" :class="(studentGrade === '2' || studentGrade === '3') ? 'grid-cols-2' : 'grid-cols-3'">
+                                <!-- Key Organik (A) -->
+                                <button type="button" @click="sortWaste('p1', 'organik')" :disabled="playerRole === 'p2'" class="mech-keycap mech-keycap-p1 group">
+                                    <div class="switch-stem switch-stem-green mb-1 group-hover:scale-105 transition-transform">
+                                        <span class="text-white drop-shadow-md">A</span>
+                                    </div>
+                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">ORGANIK (A)</span>
                                 </button>
-                            </template>
+                                
+                                <!-- Key Anorganik (S) -->
+                                <button type="button" @click="sortWaste('p1', 'anorganik')" :disabled="playerRole === 'p2'" class="mech-keycap mech-keycap-p1 group">
+                                    <div class="switch-stem switch-stem-yellow mb-1 group-hover:scale-105 transition-transform">
+                                        <span class="text-black drop-shadow-md">S</span>
+                                    </div>
+                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">ANORGANIK (S)</span>
+                                </button>
+                                
+                                <!-- Key B3 (D) -->
+                                <template x-if="studentGrade === '4-6'">
+                                    <button type="button" @click="sortWaste('p1', 'b3')" :disabled="playerRole === 'p2'" class="mech-keycap mech-keycap-p1 group">
+                                        <div class="switch-stem switch-stem-red mb-1 group-hover:scale-105 transition-transform">
+                                            <span class="text-white drop-shadow-md">D</span>
+                                        </div>
+                                        <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">B3 (D)</span>
+                                    </button>
+                                </template>
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- Player 2 (Right Column) -->
-                    <div class="flex flex-col justify-between p-4 relative" :class="p2IsShaking ? 'animate-subtle-shake' : ''">
-                        <!-- Player Name Tag -->
-                        <div class="text-center py-1.5 bg-teal-500 text-white font-fredoka font-bold rounded-2xl text-[10px] sm:text-xs shadow-md select-none uppercase tracking-wide">
-                            🔵 Kanan: <span x-text="p2Name"></span> (TOMBOL: J, K, L)
+                    <div class="flex flex-col justify-between p-3 sm:p-5 relative transition-all" :class="[p2IsShaking ? 'animate-subtle-shake' : '', playerRole === 'p1' ? 'opacity-40 grayscale-[30%]' : '']">
+                        
+                        <!-- Lock Overlay if player is Player 1 -->
+                        <template x-if="playerRole === 'p1'">
+                            <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-[1.5px] z-30 flex flex-col items-center justify-center p-2 text-center">
+                                <span class="text-3xl animate-bounce">🔒</span>
+                                <span class="font-fredoka font-bold text-xs text-blue-300 uppercase mt-1">Sisi Pemain 2</span>
+                                <span class="text-[9px] text-gray-300 font-medium">Hanya dapat dikontrol oleh Pemain 2</span>
+                            </div>
+                        </template>
+
+                        <!-- Progress Bar / Indicator P2 -->
+                        <div class="w-full bg-slate-900/90 rounded-full h-2.5 overflow-hidden border border-blue-500/40 p-0.5">
+                            <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-full rounded-full transition-all duration-200 shadow-[0_0_8px_#3b82f6]" :style="`width: ${Math.min(100, (p2Score / 1000) * 100)}%`"></div>
                         </div>
 
-                        <!-- Trash display -->
-                        <div class="flex-1 flex flex-col items-center justify-center p-2">
-                            <!-- Kaca Pembesar Frame -->
-                            <div class="w-32 h-32 sm:w-40 sm:h-40 bg-white rounded-full border-6 border-teal-500 shadow-md flex items-center justify-center relative overflow-hidden aspect-square transform hover:scale-[1.02] transition-transform duration-200">
+                        <!-- Trash display Card P2 -->
+                        <div class="flex-1 flex flex-col items-center justify-center py-2 sm:py-4">
+                            <!-- Image Frame Circle -->
+                            <div class="w-28 h-28 sm:w-36 sm:h-36 bg-gray-200/90 rounded-full border-4 border-gray-400 shadow-[0_0_20px_rgba(59,130,246,0.3)] flex items-center justify-center relative overflow-hidden aspect-square transform hover:scale-[1.02] transition-transform duration-200">
                                 <template x-if="p2CurrentQuestion">
                                     <img :src="getImageUrl(p2CurrentQuestion.gambar)" 
                                          :alt="p2CurrentQuestion.nama_sampah" 
@@ -697,29 +941,50 @@
                                          x-on:error="$event.target.src='https://placehold.co/150?text=' + encodeURIComponent(p2CurrentQuestion ? p2CurrentQuestion.nama_sampah : 'Sampah')">
                                 </template>
                             </div>
-                            <!-- Label Nama Sampah -->
+                            <!-- Label Nama Sampah P2 -->
                             <template x-if="p2CurrentQuestion">
-                                <h3 x-text="p2CurrentQuestion.nama_sampah" class="font-fredoka font-bold text-base sm:text-lg text-emerald-950 mt-2.5 tracking-wide uppercase text-center px-1">Apel</h3>
+                                <h3 x-text="p2CurrentQuestion.nama_sampah" class="font-fredoka font-extrabold text-sm sm:text-base text-white mt-2.5 tracking-wider uppercase text-center px-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">KULIT JERUK</h3>
                             </template>
                         </div>
 
-                        <!-- Sorting Buttons -->
-                        <div class="grid gap-3 mt-2" :class="(studentGrade === '2' || studentGrade === '3') ? 'grid-cols-2' : 'grid-cols-3'">
-                            <button @click="sortWaste('p2', 'organik')" class="py-3 bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-500 text-white rounded-2xl shadow-sm border-b-4 border-emerald-700 flex flex-col items-center justify-center tap-scale">
-                                <span class="text-2xl">🟢</span>
-                                <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">Organik (J)</span>
-                            </button>
-                            <button @click="sortWaste('p2', 'anorganik')" class="py-3 bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 text-white rounded-2xl shadow-sm border-b-4 border-yellow-700 flex flex-col items-center justify-center tap-scale">
-                                <span class="text-2xl">🟡</span>
-                                <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">Anorg (K)</span>
-                            </button>
-                            <template x-if="studentGrade === '4-6'">
-                                <button @click="sortWaste('p2', 'b3')" class="py-3 bg-gradient-to-b from-red-400 to-red-600 hover:from-red-500 text-white rounded-2xl shadow-sm border-b-4 border-red-700 flex flex-col items-center justify-center tap-scale">
-                                    <span class="text-2xl">🔴</span>
-                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9px] uppercase tracking-wider leading-none mt-1">B3 (L)</span>
+                        <!-- Mechanical Keyboard Switches P2 -->
+                        <div class="space-y-1.5 z-20">
+                            <!-- Hint Arrow Text -->
+                            <div class="flex items-center justify-end gap-1 text-[9px] sm:text-[10px] text-gray-300 italic font-semibold pr-1">
+                                <span>Tekan Tombol Keyboard yang Sesuai</span>
+                                <span class="text-blue-400 animate-pulse-arrow-blue font-bold"><<<</span>
+                            </div>
+
+                            <!-- Switches Housing Tray -->
+                            <div class="mech-tray grid gap-2" :class="(studentGrade === '2' || studentGrade === '3') ? 'grid-cols-2' : 'grid-cols-3'">
+                                <!-- Key Organik (J) -->
+                                <button type="button" @click="sortWaste('p2', 'organik')" :disabled="playerRole === 'p1'" class="mech-keycap mech-keycap-p2 group">
+                                    <div class="switch-stem switch-stem-green mb-1 group-hover:scale-105 transition-transform">
+                                        <span class="text-white drop-shadow-md">J</span>
+                                    </div>
+                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">ORGANIK (J)</span>
                                 </button>
-                            </template>
+                                
+                                <!-- Key Anorganik (K) -->
+                                <button type="button" @click="sortWaste('p2', 'anorganik')" :disabled="playerRole === 'p1'" class="mech-keycap mech-keycap-p2 group">
+                                    <div class="switch-stem switch-stem-yellow mb-1 group-hover:scale-105 transition-transform">
+                                        <span class="text-black drop-shadow-md">K</span>
+                                    </div>
+                                    <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">ANORGANIK (K)</span>
+                                </button>
+                                
+                                <!-- Key B3 (L) -->
+                                <template x-if="studentGrade === '4-6'">
+                                    <button type="button" @click="sortWaste('p2', 'b3')" :disabled="playerRole === 'p1'" class="mech-keycap mech-keycap-p2 group">
+                                        <div class="switch-stem switch-stem-red mb-1 group-hover:scale-105 transition-transform">
+                                            <span class="text-white drop-shadow-md">L</span>
+                                        </div>
+                                        <span class="font-fredoka font-bold text-[8px] sm:text-[9.5px] text-white uppercase tracking-wider leading-none">B3 (L)</span>
+                                    </button>
+                                </template>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </template>
@@ -914,20 +1179,34 @@
         function gameEngine() {
             return {
                 init() {
+                    this.checkMobileAndOrientation();
+                    window.addEventListener('resize', () => this.checkMobileAndOrientation());
+                    window.addEventListener('orientationchange', () => this.checkMobileAndOrientation());
+
                     window.addEventListener('keydown', (e) => {
                         if (this.gameState !== 'playing' || this.gameMode !== 'duel') return;
                         const key = e.key.toLowerCase();
                         
                         // Player 1 (Left): A (Organik), S (Anorganik), D (B3)
-                        if (key === 'a') this.sortWaste('p1', 'organik');
-                        if (key === 's') this.sortWaste('p1', 'anorganik');
-                        if (key === 'd' && this.studentGrade === '4-6') this.sortWaste('p1', 'b3');
+                        if (key === 'a' || key === 's' || key === 'd') {
+                            if (this.playerRole === 'p2') return; // P2 tidak bisa mengontrol P1
+                            if (key === 'a') this.sortWaste('p1', 'organik');
+                            if (key === 's') this.sortWaste('p1', 'anorganik');
+                            if (key === 'd' && this.studentGrade === '4-6') this.sortWaste('p1', 'b3');
+                        }
                         
                         // Player 2 (Right): J (Organik), K (Anorganik), L (B3)
-                        if (key === 'j') this.sortWaste('p2', 'organik');
-                        if (key === 'k') this.sortWaste('p2', 'anorganik');
-                        if (key === 'l' && this.studentGrade === '4-6') this.sortWaste('p2', 'b3');
+                        if (key === 'j' || key === 'k' || key === 'l') {
+                            if (this.playerRole === 'p1') return; // P1 tidak bisa mengontrol P2
+                            if (key === 'j') this.sortWaste('p2', 'organik');
+                            if (key === 'k') this.sortWaste('p2', 'anorganik');
+                            if (key === 'l' && this.studentGrade === '4-6') this.sortWaste('p2', 'b3');
+                        }
                     });
+                },
+                checkMobileAndOrientation() {
+                    this.isMobile = (window.innerWidth <= 850) || ('ontouchstart' in window) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    this.isPortrait = window.innerHeight > window.innerWidth;
                 },
                 // Background & Theme settings
                 currentTheme: localStorage.getItem('detektif_theme') || 'forest',
@@ -1004,6 +1283,10 @@
                 
                 // Student Identity
                 studentName: '',
+                playerRole: 'p1', // 'p1', 'p2', atau 'both'
+                isMobile: false,
+                isPortrait: false,
+                dismissMobileNotice: false,
                 p1Name: '',
                 p2Name: '',
                 studentGrade: '',
@@ -1209,8 +1492,17 @@
                 // LAUNCH ACTIVE GAMEPLAY SCREEN
                 launchActiveGame() {
                     if (this.gameMode === 'duel') {
-                        // Gunakan nama yang diinput (studentName) sebagai nama pemain di HUD duel
-                        this.p1Name = this.studentName;
+                        // Atur nama pemain berdasarkan playerRole
+                        if (this.playerRole === 'p1') {
+                            this.p1Name = this.studentName || 'Pemain 1';
+                            this.p2Name = 'Pemain 2';
+                        } else if (this.playerRole === 'p2') {
+                            this.p1Name = 'Pemain 1';
+                            this.p2Name = this.studentName || 'Pemain 2';
+                        } else {
+                            this.p1Name = (this.studentName || 'Pemain 1') + ' (P1)';
+                            this.p2Name = 'Pemain 2 (P2)';
+                        }
 
                         // Reset P1 stats
                         this.p1Score = 0;
@@ -1306,8 +1598,11 @@
                 // SORT WASTE (BAK CLICKED)
                 sortWaste(arg1, arg2) {
                     if (arg1 === 'p1' || arg1 === 'p2') {
-                        // Duel Mode (Local 2 Players)
+                        // Duel Mode (Check Role Permission)
                         const player = arg1;
+                        if (this.playerRole === 'p1' && player !== 'p1') return; // Blir jika P1 klik P2
+                        if (this.playerRole === 'p2' && player !== 'p2') return; // Blir jika P2 klik P1
+
                         const chosenCategory = arg2;
 
                         if (player === 'p1') {

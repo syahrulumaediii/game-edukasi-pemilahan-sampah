@@ -92,6 +92,7 @@
                                     <th class="py-3">Nama Sesi</th>
                                     <th class="py-3">Kode Game</th>
                                     <th class="py-3">Soal Aktif</th>
+                                    <th class="py-3">Mode Game</th>
                                     <th class="py-3">Status</th>
                                     <th class="py-3 text-right">Misi Bermain</th>
                                 </tr>
@@ -106,6 +107,21 @@
                                             </span>
                                         </td>
                                         <td class="py-4 font-semibold text-emerald-900">{{ $session->questions()->count() }} Soal</td>
+                                        <td class="py-4">
+                                            @if($session->game_mode === 'duel')
+                                                <span class="px-2.5 py-1 text-[10px] font-bold text-purple-900 bg-purple-100/90 border border-purple-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    ⚔️ Mode Duel
+                                                </span>
+                                            @elseif($session->game_mode === 'belajar')
+                                                <span class="px-2.5 py-1 text-[10px] font-bold text-teal-900 bg-teal-100/90 border border-teal-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    📖 Belajar
+                                                </span>
+                                            @else
+                                                <span class="px-2.5 py-1 text-[10px] font-bold text-blue-900 bg-blue-100/90 border border-blue-200 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                                    🎯 Quizizz
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td class="py-4">
                                             @if($session->is_active)
                                                 <span class="px-2.5 py-0.5 text-[10px] font-bold text-emerald-900 bg-emerald-200/70 rounded-full uppercase tracking-wider">Dibuka</span>
@@ -128,7 +144,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="py-12 text-center text-gray-500">
+                                        <td colspan="6" class="py-12 text-center text-gray-500">
                                             <span class="text-4xl block mb-2">📁</span>
                                             Belum ada sesi kelas dibuat. Silakan klik **Buat Sesi Kelas Baru** di atas!
                                         </td>

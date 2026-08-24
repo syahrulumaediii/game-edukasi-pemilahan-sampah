@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -51,16 +52,8 @@ class QuestionController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            
-            // Buat direktori jika belum ada
-            if (!File::exists(public_path('images/sampah'))) {
-                File::makeDirectory(public_path('images/sampah'), 0755, true);
-            }
-
-            $file->move(public_path('images/sampah'), $filename);
-            $data['gambar'] = 'images/sampah/' . $filename;
+            $path = $request->file('gambar')->store('images/sampah', 'public');
+            $data['gambar'] = 'storage/' . $path;
         }
 
         Question::create($data);
@@ -103,16 +96,16 @@ class QuestionController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada dan bukan bawaan seeder asli (kita hanya hapus jika file fisik ada)
-            if ($question->gambar && File::exists(public_path($question->gambar)) && !str_contains($question->gambar, 'seeder_placeholder')) {
-                // (Optional: hapus file lama untuk menghemat storage)
-                // File::delete(public_path($question->gambar));
+            if ($question->gambar) {
+                if (str_starts_with($question->gambar, 'storage/')) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $question->gambar));
+                } elseif (File::exists(public_path($question->gambar)) && !str_contains($question->gambar, 'seeder_placeholder')) {
+                    File::delete(public_path($question->gambar));
+                }
             }
 
-            $file = $request->file('gambar');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/sampah'), $filename);
-            $data['gambar'] = 'images/sampah/' . $filename;
+            $path = $request->file('gambar')->store('images/sampah', 'public');
+            $data['gambar'] = 'storage/' . $path;
         }
 
         $question->update($data);
@@ -125,9 +118,12 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        // Hapus gambar jika ada
-        if ($question->gambar && File::exists(public_path($question->gambar))) {
-            // File::delete(public_path($question->gambar));
+        if ($question->gambar) {
+            if (str_starts_with($question->gambar, 'storage/')) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $question->gambar));
+            } elseif (File::exists(public_path($question->gambar))) {
+                File::delete(public_path($question->gambar));
+            }
         }
 
         $question->delete();

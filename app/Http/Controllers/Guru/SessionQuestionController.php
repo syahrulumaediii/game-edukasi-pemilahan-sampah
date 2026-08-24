@@ -8,6 +8,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SessionQuestionController extends Controller
 {
@@ -54,15 +55,8 @@ class SessionQuestionController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-            if (!File::exists(public_path('images/sampah'))) {
-                File::makeDirectory(public_path('images/sampah'), 0755, true);
-            }
-
-            $file->move(public_path('images/sampah'), $filename);
-            $data['gambar'] = 'images/sampah/' . $filename;
+            $path = $request->file('gambar')->store('images/sampah', 'public');
+            $data['gambar'] = 'storage/' . $path;
         }
 
         $question = Question::create($data);
@@ -121,15 +115,16 @@ class SessionQuestionController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($question->gambar && File::exists(public_path($question->gambar))) {
-                // File::delete(public_path($question->gambar));
+            if ($question->gambar) {
+                if (str_starts_with($question->gambar, 'storage/')) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $question->gambar));
+                } elseif (File::exists(public_path($question->gambar))) {
+                    File::delete(public_path($question->gambar));
+                }
             }
 
-            $file = $request->file('gambar');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/sampah'), $filename);
-            $data['gambar'] = 'images/sampah/' . $filename;
+            $path = $request->file('gambar')->store('images/sampah', 'public');
+            $data['gambar'] = 'storage/' . $path;
         }
 
         $question->update($data);
@@ -166,8 +161,12 @@ class SessionQuestionController extends Controller
         // Jika ini soal kustom milik guru tersebut dan sudah tidak terhubung ke sesi manapun,
         // kita bisa menghapusnya secara permanen dari database
         if ($question->user_id === $user->id && $question->gameSessions()->count() === 0) {
-            if ($question->gambar && File::exists(public_path($question->gambar))) {
-                File::delete(public_path($question->gambar));
+            if ($question->gambar) {
+                if (str_starts_with($question->gambar, 'storage/')) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $question->gambar));
+                } elseif (File::exists(public_path($question->gambar))) {
+                    File::delete(public_path($question->gambar));
+                }
             }
             $question->delete();
         }

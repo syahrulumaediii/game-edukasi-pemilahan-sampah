@@ -1,7 +1,0 @@
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 30 75 C 25 55 35 30 50 30 C 65 30 75 55 70 75 Z" fill="#22c55e" />
-            <path d="M 40 75 C 38 60 42 40 50 40 C 58 40 62 60 60 75 Z" fill="#4ade80" />
-            <!-- Carrot outline or scrap -->
-            <path d="M 75 75 L 85 45 L 65 65 Z" fill="#f97316" />
-            <path d="M 85 45 Q 90 35 88 30" stroke="#16a34a" stroke-width="3" fill="none" />
-        </svg>

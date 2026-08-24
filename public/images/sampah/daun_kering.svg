@@ -1,6 +1,0 @@
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 50 15 C 70 35 75 60 50 85 C 25 60 30 35 50 15 Z" fill="#d97706" />
-            <line x1="50" y1="15" x2="50" y2="85" stroke="#78350f" stroke-width="3" />
-            <path d="M 50 30 Q 65 40 60 45 M 50 45 Q 68 55 62 60 M 50 60 Q 65 70 58 75" stroke="#78350f" stroke-width="2" stroke-linecap="round" fill="none" />
-            <path d="M 50 30 Q 35 40 40 45 M 50 45 Q 32 55 38 60 M 50 60 Q 35 70 42 75" stroke="#78350f" stroke-width="2" stroke-linecap="round" fill="none" />
-        </svg>

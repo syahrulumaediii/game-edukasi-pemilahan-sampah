@@ -1,0 +1,322 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: background 0.8s ease;
+}
+.font-fredoka {
+    font-family: 'Fredoka', sans-serif;
+}
+[x-cloak] { display: none !important; }
+.tap-scale:active {
+    transform: scale(0.92);
+}
+@keyframes floatHint {
+    0% { transform: translateY(12px) scale(0.92); opacity: 0; }
+    60% { transform: translateY(-4px) scale(1.02); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.animate-float-hint {
+    animation: floatHint 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes subtleShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px) rotate(-1deg); }
+    40%, 80% { transform: translateX(6px) rotate(1deg); }
+}
+.animate-subtle-shake {
+    animation: subtleShake 0.4s ease-in-out;
+}
+
+/* --- BACKGROUND STYLES & THEMES --- */
+#game-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    transition: background 0.8s ease;
+}
+.theme-forest {
+    background: linear-gradient(to bottom, #dbeafe, #bbf7d0, #86efac);
+}
+.theme-ocean {
+    background: linear-gradient(to bottom, #bae6fd, #7dd3fc, #0284c7);
+}
+.theme-space {
+    background: linear-gradient(to bottom, #09090b, #0f172a, #1e1b4b);
+}
+.theme-garden {
+    background: linear-gradient(to bottom, #fef08a, #fed7aa, #fbcfe8);
+}
+.theme-balloon {
+    background: linear-gradient(to bottom, #e0f2fe, #fef08a, #fbcfe8);
+}
+
+/* --- ANIMATIONS & FLOATING ELEMENTS --- */
+/* Awan Melayang */
+@keyframes floatCloud {
+    0% { transform: translateX(-15vw); }
+    100% { transform: translateX(115vw); }
+}
+.cloud {
+    position: absolute;
+    font-size: 3.5rem;
+    opacity: 0.55;
+    animation: floatCloud 50s linear infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+}
+.cloud-1 { top: 8%; animation-duration: 65s; }
+.cloud-2 { top: 22%; animation-duration: 45s; animation-delay: -15s; }
+
+/* Dedaunan & Kelopak Bunga Gugur */
+@keyframes fallLeaf {
+    0% { transform: translateY(-8vh) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.75; }
+    90% { opacity: 0.75; }
+    100% { transform: translateY(108vh) translateX(120px) rotate(360deg); opacity: 0; }
+}
+.leaf, .petal {
+    position: absolute;
+    font-size: 1.6rem;
+    animation: fallLeaf 16s linear infinite;
+}
+.leaf-1 { left: 8%; animation-duration: 13s; animation-delay: 0s; }
+.leaf-2 { left: 32%; animation-duration: 19s; animation-delay: -4s; }
+.leaf-3 { left: 68%; animation-duration: 16s; animation-delay: -2s; }
+.leaf-4 { left: 88%; animation-duration: 22s; animation-delay: -8s; }
+
+.petal-1 { left: 12%; animation-duration: 11s; animation-delay: 0s; }
+.petal-2 { left: 38%; animation-duration: 15s; animation-delay: -3s; }
+.petal-3 { left: 62%; animation-duration: 13s; animation-delay: -6s; }
+.petal-4 { left: 84%; animation-duration: 17s; animation-delay: -1s; }
+
+/* Gelembung & Balon Naik */
+@keyframes riseBubble {
+    0% { transform: translateY(108vh) translateX(0) scale(0.8); opacity: 0; }
+    15% { opacity: 0.65; }
+    85% { opacity: 0.65; }
+    100% { transform: translateY(-8vh) translateX(60px) scale(1.2); opacity: 0; }
+}
+.bubble, .balloon {
+    position: absolute;
+    animation: riseBubble 16s linear infinite;
+}
+.bubble { font-size: 1.4rem; }
+.balloon { font-size: 2.8rem; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.1)); }
+
+.bubble-1 { left: 7%; animation-duration: 14s; animation-delay: 0s; }
+.bubble-2 { left: 28%; animation-duration: 9s; animation-delay: -2s; }
+.bubble-3 { left: 48%; animation-duration: 17s; animation-delay: -5s; }
+.bubble-4 { left: 72%; animation-duration: 11s; animation-delay: -1s; }
+.bubble-5 { left: 88%; animation-duration: 15s; animation-delay: -7s; }
+
+.balloon-1 { left: 18%; animation-duration: 20s; animation-delay: 0s; }
+.balloon-2 { left: 52%; animation-duration: 24s; animation-delay: -6s; }
+.balloon-3 { left: 78%; animation-duration: 18s; animation-delay: -12s; }
+
+/* Ikan Berenang */
+@keyframes swimFish {
+    0% { transform: translateX(-15vw) scaleX(1); }
+    49% { transform: translateX(115vw) scaleX(1); }
+    50% { transform: translateX(115vw) scaleX(-1); }
+    99% { transform: translateX(-15vw) scaleX(-1); }
+    100% { transform: translateX(-15vw) scaleX(1); }
+}
+.fish {
+    position: absolute;
+    font-size: 2.2rem;
+    animation: swimFish 32s linear infinite;
+}
+.fish-1 { top: 38%; animation-duration: 26s; }
+.fish-2 { top: 72%; animation-duration: 38s; animation-delay: -12s; }
+
+/* Bintang Berkedip */
+@keyframes twinkleStar {
+    0%, 100% { opacity: 0.25; transform: scale(0.75) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.25) rotate(180deg); }
+}
+.star {
+    position: absolute;
+    animation: twinkleStar 3.5s ease-in-out infinite;
+}
+.star-1 { top: 12%; left: 12%; font-size: 1.6rem; animation-delay: 0s; }
+.star-2 { top: 18%; left: 82%; font-size: 1.1rem; animation-delay: 0.6s; }
+.star-3 { top: 42%; left: 8%; font-size: 1.3rem; animation-delay: 1.2s; }
+.star-4 { top: 68%; left: 88%; font-size: 1.6rem; animation-delay: 1.8s; }
+.star-5 { top: 82%; left: 18%; font-size: 2.2rem; animation-delay: 2.4s; }
+
+/* Benda Angkasa */
+@keyframes floatSpace {
+    0% { transform: rotate(0deg) translate(0, 0); }
+    50% { transform: rotate(180deg) translate(12px, 18px); }
+    100% { transform: rotate(360deg) translate(0, 0); }
+}
+.space-obj {
+    position: absolute;
+    animation: floatSpace 24s linear infinite;
+}
+.space-1 { top: 28%; left: 68%; font-size: 3.2rem; }
+.space-2 { top: 58%; left: 12%; font-size: 2.8rem; animation-duration: 28s; }
+
+/* Lebah Ceria */
+@keyframes buzzBee {
+    0% { transform: translate(0, 0) scaleX(1); }
+    25% { transform: translate(40px, -25px) scaleX(1); }
+    50% { transform: translate(80px, 0px) scaleX(-1); }
+    75% { transform: translate(40px, 25px) scaleX(-1); }
+    100% { transform: translate(0, 0) scaleX(1); }
+}
+.bee {
+    position: absolute;
+    font-size: 1.6rem;
+    animation: buzzBee 6.5s ease-in-out infinite;
+}
+.bee-1 { top: 28%; left: 18%; }
+.bee-2 { top: 62%; left: 78%; animation-delay: -3.5s; }
+
+/* Pesawat Kertas */
+@keyframes glidePlane {
+    0% { transform: translate(-15vw, 35vh) rotate(12deg); opacity: 0; }
+    8% { opacity: 0.8; }
+    92% { opacity: 0.8; }
+    100% { transform: translate(115vw, -5vh) rotate(12deg); opacity: 0; }
+}
+.paper-plane {
+    position: absolute;
+    font-size: 2.2rem;
+    animation: glidePlane 20s linear infinite;
+}
+
+/* --- PARTIKEL KLIK INTERAKTIF --- */
+.click-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 1.7rem;
+    transform: translate(-50%, -50%);
+    animation: particleFloatUp 0.85s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+}
+
+@keyframes particleFloatUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+        opacity: 1;
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, calc(-50% - 90px)) scale(1.6) rotate(270deg);
+        opacity: 0;
+    }
+}
+/* --- MODE DUEL CYBERPUNK & MECHANICAL KEYBOARD SWITCH STYLES --- */
+.cyber-duel-bg {
+    background: radial-gradient(circle at center, #0f2b3e 0%, #081321 70%, #030810 100%);
+    background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* Metallic Top Frame Header Badge */
+.metallic-header {
+    background: linear-gradient(180deg, #374151 0%, #1f2937 25%, #111827 75%, #030712 100%);
+    border: 3px solid #6b7280;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+.metallic-badge-title {
+    background: linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
+    border: 2px solid #06b6d4;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Mechanical Switch Housing Plate */
+.mech-tray {
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border: 2px solid #334155;
+    border-radius: 1.5rem;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.5);
+    padding: 8px;
+}
+
+/* Mechanical Keycap 3D Component */
+.mech-keycap {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%);
+    border-radius: 1rem;
+    padding: 10px 4px 8px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s ease;
+    cursor: pointer;
+    user-select: none;
+}
+.mech-keycap:hover {
+    transform: translateY(-2px);
+}
+.mech-keycap:active {
+    transform: translateY(3px) scale(0.97);
+}
+
+/* LED Glow Accents for P1 (Red) and P2 (Blue) */
+.mech-keycap-p1 {
+    border: 2px solid #ef4444;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.6), inset 0 0 12px rgba(239, 68, 68, 0.3), 0 4px 0 #991b1b;
+}
+.mech-keycap-p1:active {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8), inset 0 0 16px rgba(239, 68, 68, 0.5), 0 1px 0 #991b1b;
+}
+
+.mech-keycap-p2 {
+    border: 2px solid #3b82f6;
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.6), inset 0 0 12px rgba(59, 130, 246, 0.3), 0 4px 0 #1e40af;
+}
+.mech-keycap-p2:active {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.8), inset 0 0 16px rgba(59, 130, 246, 0.5), 0 1px 0 #1e40af;
+}
+
+/* Key Switch Mechanical Stem (The Switch Keycap Stem Visual) */
+.switch-stem {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    color: #ffffff;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 3px 6px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+.switch-stem-green {
+    background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+}
+.switch-stem-yellow {
+    background: linear-gradient(180deg, #eab308 0%, #a16207 100%);
+    color: #000000;
+}
+.switch-stem-red {
+    background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+}
+
+/* Pulsing Glow Arrow Animations */
+@keyframes pulseArrowRed {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    50% { transform: translateX(4px); opacity: 1; text-shadow: 0 0 10px #ef4444; }
+}
+@keyframes pulseArrowBlue {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    50% { transform: translateX(-4px); opacity: 1; text-shadow: 0 0 10px #3b82f6; }
+}
+.animate-pulse-arrow-red {
+    animation: pulseArrowRed 1.2s infinite ease-in-out;
+}
+.animate-pulse-arrow-blue {
+    animation: pulseArrowBlue 1.2s infinite ease-in-out;
+}

@@ -27,6 +27,8 @@
         }
         [x-cloak] { display: none !important; }
     </style>
+
+
 </head>
 <body class="p-6 flex flex-col justify-between min-h-screen" x-data="liveLeaderboard()" x-init="startPolling()">
 
@@ -165,5 +167,7 @@
             }
         }
     </script>
+
+    
 </body>
 </html>

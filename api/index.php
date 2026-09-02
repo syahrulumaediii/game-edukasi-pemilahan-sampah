@@ -24,6 +24,8 @@ foreach ($dirs as $dir) {
     }
 }
 
+putenv('APP_DEBUG=true');
+$_ENV['APP_DEBUG'] = 'true';
 putenv('APP_STORAGE=/tmp/storage');
 $_ENV['APP_STORAGE'] = '/tmp/storage';
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');

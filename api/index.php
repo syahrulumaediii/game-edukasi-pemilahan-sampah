@@ -52,5 +52,3 @@ try {
     echo '<p><strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ' (Line ' . $e->getLine() . ')</p>';
     echo '<pre style="background:#f4f4f4;padding:10px;border-radius:5px;">' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
 }
-
-

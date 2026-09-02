@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Box perspective -->
+            <polygon points="25,45 50,30 75,45 75,75 50,85 25,75" fill="#d97706" stroke="#b45309" stroke-width="3" />
+            <!-- Box flaps open -->
+            <polygon points="25,45 50,30 50,15 20,30" fill="#ca8a04" stroke="#b45309" stroke-width="2" />
+            <polygon points="75,45 50,30 50,15 80,30" fill="#ca8a04" stroke="#b45309" stroke-width="2" />
+        </svg>

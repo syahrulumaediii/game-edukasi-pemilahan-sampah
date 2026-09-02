@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama_sampah' => 'Sisa Nasi',
                 'kategori' => 'organik',
-                'gambar' => 'images/sampah/1787589660_6a8c741c38147.png',
+                'gambar' => 'storage/images/sampah/1787589660_6a8c741c38147.png',
                 'fakta_edukasi' => 'Nasi sisa bisa membusuk dengan cepat dan menghasilkan nutrisi bagi tanah!',
                 'is_default' => true,
             ],
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama_sampah' => 'Kardus Bekas',
                 'kategori' => 'anorganik',
-                'gambar' => 'images/sampah/1786065444_6a7532245baaf.png',
+                'gambar' => 'storage/images/sampah/1786065444_6a7532245baaf.png',
                 'fakta_edukasi' => 'Kardus bekas bisa dihancurkan dan dibuat jadi kertas baru!',
                 'is_default' => true,
             ],
@@ -135,7 +135,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama_sampah' => 'Kertas Koran',
                 'kategori' => 'anorganik',
-                'gambar' => 'images/sampah/1786065627_6a7532db311d6.png',
+                'gambar' => 'storage/images/sampah/1786065627_6a7532db311d6.png',
                 'fakta_edukasi' => 'Koran bekas bisa didaur ulang menjadi buku tulis baru!',
                 'is_default' => true,
             ],
@@ -144,14 +144,14 @@ class DatabaseSeeder extends Seeder
             [
                 'nama_sampah' => 'Baterai Bekas',
                 'kategori' => 'b3',
-                'gambar' => 'images/sampah/1786065736_6a7533484dfc3.png',
+                'gambar' => 'storage/images/sampah/1786065736_6a7533484dfc3.png',
                 'fakta_edukasi' => 'Baterai mengandung zat kimia beracun yang berbahaya jika dibuang di tanah!',
                 'is_default' => true,
             ],
             [
                 'nama_sampah' => 'Lampu Bohlam',
                 'kategori' => 'b3',
-                'gambar' => 'images/sampah/1786065696_6a753320ee309.png',
+                'gambar' => 'storage/images/sampah/1786065696_6a753320ee309.png',
                 'fakta_edukasi' => 'Lampu bekas mengandung gas merkuri yang berbahaya bagi pernapasan kita!',
                 'is_default' => true,
             ],

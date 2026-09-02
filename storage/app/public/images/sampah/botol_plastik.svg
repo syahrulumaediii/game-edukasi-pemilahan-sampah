@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 42 20 L 58 20 L 58 30 L 65 38 L 65 80 C 65 83 62 85 58 85 L 42 85 C 38 85 35 83 35 80 L 35 38 L 42 30 Z" fill="#e0f2fe" stroke="#38bdf8" stroke-width="4" />
+            <!-- Cap -->
+            <rect x="44" y="12" width="12" height="8" rx="2" fill="#0284c7" />
+            <!-- Label -->
+            <rect x="35" y="48" width="30" height="16" fill="#38bdf8" opacity="0.8" />
+            <!-- Waves on label -->
+            <path d="M 35 56 Q 42 50 50 56 Q 58 62 65 56" stroke="#ffffff" stroke-width="2" fill="none" />
+        </svg>

@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Glass bulb -->
+            <circle cx="50" cy="45" r="25" fill="#fef9c3" stroke="#eab308" stroke-width="4" />
+            <path d="M 38 60 L 62 60 L 58 75 L 42 75 Z" fill="#d1d5db" stroke="#9ca3af" stroke-width="3" />
+            <!-- Contact point -->
+            <ellipse cx="50" cy="75" rx="6" ry="3" fill="#4b5563" />
+            <!-- Filament -->
+            <path d="M 45 45 Q 50 35 55 45" stroke="#eab308" stroke-width="2" fill="none" />
+        </svg>

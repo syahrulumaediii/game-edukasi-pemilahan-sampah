@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+use Illuminate\Support\Facades\Cookie;
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -36,12 +38,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $recallerName = Auth::guard('web')->getRecallerName();
+
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+        if ($user) {
+            $user->setRememberToken(null);
+            $user->save();
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->flush();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        Cookie::queue(Cookie::forget($recallerName));
+        Cookie::queue(Cookie::forget(config('session.cookie')));
+
+        return redirect()->route('login');
     }
 }
